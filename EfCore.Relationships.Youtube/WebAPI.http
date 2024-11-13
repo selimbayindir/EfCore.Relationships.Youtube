@@ -1,0 +1,12 @@
+Post https://localhost:7286/user-create
+Content-Type:application/json
+{
+           "firstName":"Selim",
+           "lastName":"Bayýndýr",
+         "IdentityNumber":"12345678901",
+         "fullAddress":"Giresun"
+}
+###
+
+GET https://localhost:7286/user-getall
+Content-Type:application/json

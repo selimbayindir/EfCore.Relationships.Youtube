@@ -17,7 +17,7 @@ namespace EfCore.Relationships.Youtube.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -41,6 +41,9 @@ namespace EfCore.Relationships.Youtube.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserInformationId")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
@@ -58,12 +61,20 @@ namespace EfCore.Relationships.Youtube.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.ToTable("UsersInformation");
+                });
+
+            modelBuilder.Entity("EfCore.Relationships.Youtube.Models.User", b =>
+                {
+                    b.HasOne("EfCore.Relationships.Youtube.Models.UserInformation", "UserInformation")
+                        .WithOne()
+                        .HasForeignKey("EfCore.Relationships.Youtube.Models.User", "UserInformationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("UserInformation");
                 });
 #pragma warning restore 612, 618
         }
